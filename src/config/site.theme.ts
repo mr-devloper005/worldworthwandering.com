@@ -1,24 +1,24 @@
 import { defineSiteTheme } from '@/config/site.theme.defaults'
 
 export const SITE_THEME = defineSiteTheme({
-  shell: 'directory',
+  shell: 'editorial',
   hero: {
-    variant: 'search-first',
-    eyebrow: 'Business discovery system',
+    variant: 'spotlight-split',
+    eyebrow: 'Premium multi-surface publishing system',
   },
   home: {
-    layout: 'directory-stack',
-    primaryTask: 'listing',
-    featuredTaskKeys: ['listing', 'profile', 'classified'],
+    layout: 'editorial-rhythm',
+    primaryTask: 'article',
+    featuredTaskKeys: ['article', 'image', 'profile'],
   },
   navigation: {
-    variant: 'compact',
+    variant: 'editorial',
   },
   footer: {
-    variant: 'columns',
+    variant: 'editorial',
   },
   cards: {
-    listing: 'listing-elevated',
+    listing: 'editorial-feature',
     article: 'editorial-feature',
     image: 'studio-panel',
     profile: 'studio-panel',
