@@ -27,7 +27,8 @@ const taskIcons: Record<TaskKey, any> = {
 const variantShells = {
   'listing-directory': 'bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.08),transparent_24%),linear-gradient(180deg,#f8fbff_0%,#ffffff_100%)]',
   'listing-showcase': 'bg-[linear-gradient(180deg,#ffffff_0%,#f4f9ff_100%)]',
-  'article-editorial': 'bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.08),transparent_20%),linear-gradient(180deg,#fff8ef_0%,#ffffff_100%)]',
+  'article-editorial':
+    'bg-[radial-gradient(ellipse_90%_60%_at_0%_-10%,rgba(83,203,243,0.16),transparent_50%),radial-gradient(ellipse_70%_50%_at_100%_0%,rgba(255,222,66,0.12),transparent_45%),linear-gradient(180deg,#ffffff_0%,#f4f7ff_100%)]',
   'article-journal': 'bg-[linear-gradient(180deg,#fffdf9_0%,#f7f1ea_100%)]',
   'image-masonry': 'bg-[linear-gradient(180deg,#09101d_0%,#111c2f_100%)] text-white',
   'image-portfolio': 'bg-[linear-gradient(180deg,#07111f_0%,#13203a_100%)] text-white',
@@ -71,11 +72,11 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
       }
     : layoutKey.startsWith('article') || layoutKey.startsWith('sbm')
       ? {
-          muted: 'text-[#72594a]',
-          panel: 'border border-[#dbc6b6] bg-white/90',
-          soft: 'border border-[#dbc6b6] bg-[#fff8ef]',
-          input: 'border border-[#dbc6b6] bg-white text-[#2f1d16]',
-          button: 'bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
+          muted: 'text-[#111FA2]/65',
+          panel: 'border border-[rgba(84,120,255,0.22)] bg-white/95 shadow-[0_20px_50px_rgba(17,31,162,0.06)]',
+          soft: 'border border-[rgba(84,120,255,0.16)] bg-[rgba(248,250,255,0.92)]',
+          input: 'border border-[rgba(84,120,255,0.28)] bg-white text-[#111FA2]',
+          button: 'bg-[#111FA2] text-white hover:bg-[#5478FF]',
         }
       : {
           muted: 'text-slate-600',
@@ -147,23 +148,35 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
         ) : null}
 
         {layoutKey === 'article-editorial' || layoutKey === 'article-journal' ? (
-          <section className="mb-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <section className="mb-12 grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
             <div>
               <p className={`text-xs uppercase tracking-[0.3em] ${ui.muted}`}>{taskConfig?.label || task}</p>
-              <h1 className="mt-3 max-w-4xl text-5xl font-semibold tracking-[-0.05em] text-foreground">{taskConfig?.description || 'Latest posts'}</h1>
-              <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>This reading surface uses slower pacing, stronger typographic hierarchy, and more breathing room so long-form content feels intentional rather than squeezed into a generic feed.</p>
+              <h1 className="mt-3 max-w-[20ch] text-4xl font-semibold tracking-[-0.05em] text-[#111FA2] sm:text-5xl">
+                {intro?.title || taskConfig?.description || 'Latest posts'}
+              </h1>
+              <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>
+                {intro?.paragraphs[0] ||
+                  'Long-form travel essays and field notes, with typography tuned for reading rather than scanning.'}
+              </p>
+              {intro?.paragraphs[1] ? (
+                <p className={`mt-4 max-w-2xl text-sm leading-8 ${ui.muted}`}>{intro.paragraphs[1]}</p>
+              ) : null}
             </div>
             <div className={`rounded-[2rem] p-6 ${ui.panel}`}>
-              <p className={`text-xs font-semibold uppercase tracking-[0.24em] ${ui.muted}`}>Reading note</p>
-              <p className={`mt-4 text-sm leading-7 ${ui.muted}`}>Use category filters to jump between topics without collapsing the page into the same repeated card rhythm used by other task types.</p>
-              <form className="mt-5 flex items-center gap-3" action={taskConfig?.route || '#'}>
+              <p className={`text-xs font-semibold uppercase tracking-[0.24em] text-[#5478FF]`}>Browse by topic</p>
+              <p className={`mt-4 text-sm leading-7 ${ui.muted}`}>
+                Filter by category to move between regions, food writing, photography essays, and practical travel notes.
+              </p>
+              <form className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center" action={taskConfig?.route || '#'}>
                 <select name="category" defaultValue={normalizedCategory} className={`h-11 flex-1 rounded-xl px-3 text-sm ${ui.input}`}>
                   <option value="all">All categories</option>
                   {CATEGORY_OPTIONS.map((item) => (
                     <option key={item.slug} value={item.slug}>{item.name}</option>
                   ))}
                 </select>
-                <button type="submit" className={`h-11 rounded-xl px-4 text-sm font-medium ${ui.button}`}>Apply</button>
+                <button type="submit" className={`h-11 shrink-0 rounded-xl px-5 text-sm font-medium ${ui.button}`}>
+                  Apply
+                </button>
               </form>
             </div>
           </section>

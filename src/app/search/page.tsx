@@ -75,8 +75,8 @@ export default async function SearchPage({
       title="Search"
       description={
         query
-          ? `Results for "${query}"`
-          : "Browse the latest posts across every task."
+          ? `Results for “${query}” across stories, photos, and other posts.`
+          : "Search stories, field photos, and other posts published on this site."
       }
       actions={
         <form action="/search" className="flex w-full gap-2 sm:w-auto">

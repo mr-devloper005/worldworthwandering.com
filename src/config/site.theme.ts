@@ -3,13 +3,13 @@ import { defineSiteTheme } from '@/config/site.theme.defaults'
 export const SITE_THEME = defineSiteTheme({
   shell: 'editorial',
   hero: {
-    variant: 'spotlight-split',
-    eyebrow: 'Premium multi-surface publishing system',
+    variant: 'gallery-mosaic',
+    eyebrow: 'Independent travel desk',
   },
   home: {
     layout: 'editorial-rhythm',
     primaryTask: 'article',
-    featuredTaskKeys: ['article', 'image', 'profile'],
+    featuredTaskKeys: ['article', 'image'],
   },
   navigation: {
     variant: 'editorial',

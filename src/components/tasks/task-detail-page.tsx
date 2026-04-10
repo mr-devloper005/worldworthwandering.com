@@ -250,62 +250,108 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
   return (
     <div className="min-h-screen bg-background">
       <NavbarShell />
-      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <main
+        className={cn(
+          isArticle
+            ? "mx-auto max-w-[1080px] px-0 pb-16 pt-4 sm:px-5 lg:px-8"
+            : "mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8",
+        )}
+      >
         <SchemaJsonLd data={schemaPayload} />
-        <Link
-          href={taskConfig?.route || "/"}
-          className="mb-6 inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
-        >
-          ← Back to {taskConfig?.label || "posts"}
-        </Link>
+        {!isArticle ? (
+          <Link
+            href={taskConfig?.route || "/"}
+            className="mb-6 inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
+          >
+            ← Back to {taskConfig?.label || "posts"}
+          </Link>
+        ) : null}
 
         <div
           className={cn(
             "grid gap-10",
-            hideSidebar ? "lg:grid-cols-1" : "lg:grid-cols-[2fr_1fr]"
+            hideSidebar ? "lg:grid-cols-1" : "lg:grid-cols-[2fr_1fr]",
           )}
         >
           <div className={cn(isClassified ? "space-y-8" : "")}>
             {isArticle ? (
-              <div className="mx-auto w-full max-w-4xl space-y-6">
-                <h1 className="text-4xl font-semibold leading-tight text-foreground">
-                  {post.title}
-                </h1>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
-                  <span>By {articleAuthor}</span>
-                  {articleDate ? <span>{articleDate}</span> : null}
-                  <Badge variant="secondary" className="inline-flex items-center gap-1">
-                    <Tag className="h-3.5 w-3.5" />
-                    {category}
-                  </Badge>
+              <>
+                <div className="relative overflow-hidden rounded-b-[2rem] bg-gradient-to-br from-[#111FA2] via-[#5478FF] to-[#53CBF3] px-5 pb-14 pt-3 sm:rounded-b-[2.5rem] sm:px-8">
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute -right-10 top-0 h-40 w-40 rounded-full bg-[#FFDE42]/35 blur-3xl"
+                  />
+                  <div
+                    aria-hidden
+                    className="voyage-hero-aurora pointer-events-none absolute bottom-0 left-1/4 h-32 w-64 rounded-full bg-white/20 blur-2xl"
+                  />
+                  <Link
+                    href={taskConfig?.route || "/articles"}
+                    className="relative z-10 mb-8 inline-flex items-center gap-2 text-sm font-medium text-white/85 transition hover:text-white"
+                  >
+                    <span aria-hidden>←</span>
+                    Back to {taskConfig?.label || "stories"}
+                  </Link>
+                  <div className="relative z-10 max-w-3xl">
+                    <div className="flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em]">
+                      <span className="rounded-full bg-[#FFDE42] px-3 py-1 text-[#111FA2]">{category}</span>
+                      {articleDate ? <span className="text-white/75">{articleDate}</span> : null}
+                    </div>
+                    <h1 className="mt-5 text-balance font-[family-name:var(--font-display)] text-3xl font-semibold leading-[1.1] tracking-[-0.04em] text-white sm:text-4xl lg:text-[2.65rem]">
+                      {post.title}
+                    </h1>
+                    <p className="mt-5 text-sm text-white/85 sm:text-base">
+                      <span className="text-white/60">Words </span>
+                      <span className="font-semibold text-[#FFDE42]">{articleAuthor}</span>
+                    </p>
+                  </div>
                 </div>
-                {postTags.length ? (
-                  <div className="flex flex-wrap gap-2">
-                    {postTags.map((tag) => (
-                      <Badge key={tag} variant="outline">
-                        {tag}
-                      </Badge>
-                    ))}
+
+                <article className="relative z-[1] -mt-7 mx-3 rounded-t-[1.5rem] border border-[rgba(84,120,255,0.18)] bg-card px-5 py-10 shadow-[0_28px_70px_rgba(17,31,162,0.12)] sm:mx-5 sm:rounded-t-[1.75rem] sm:px-9 sm:py-12 lg:mx-6">
+                  {postTags.length ? (
+                    <div className="mb-8 flex flex-wrap gap-2">
+                      {postTags.map((tag) => (
+                        <Badge
+                          key={tag}
+                          variant="outline"
+                          className="border-[rgba(84,120,255,0.35)] text-[#111FA2] hover:bg-[rgba(83,203,243,0.1)]"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  ) : null}
+                  {articleSummary ? (
+                    <p className="text-balance font-[family-name:var(--font-display)] text-xl font-medium italic leading-snug text-[#111FA2]/88 sm:text-2xl">
+                      {articleSummary}
+                    </p>
+                  ) : null}
+                  {images[0] ? (
+                    <figure className="mt-10">
+                      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-[rgba(84,120,255,0.14)] bg-muted shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]">
+                        <ContentImage
+                          src={images[0]}
+                          alt={`${post.title} featured image`}
+                          fill
+                          className="object-cover"
+                          intrinsicWidth={1600}
+                          intrinsicHeight={900}
+                        />
+                      </div>
+                      <figcaption className="mt-3 text-center text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                        Field photograph · {post.title}
+                      </figcaption>
+                    </figure>
+                  ) : null}
+                  <RichContent
+                    html={articleHtml}
+                    className="voyage-reading-prose mt-10 text-[1.0625rem] leading-[1.75] prose-p:my-6 prose-h2:my-8 prose-h3:my-6 prose-ul:my-6"
+                  />
+                  <div className="mt-14 border-t border-[rgba(84,120,255,0.12)] pt-10">
+                    <ArticleComments slug={post.slug} />
                   </div>
-                ) : null}
-                {articleSummary ? (
-                  <p className="text-base leading-7 text-muted-foreground">{articleSummary}</p>
-                ) : null}
-                {images[0] ? (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-border bg-muted">
-                    <ContentImage
-                      src={images[0]}
-                      alt={`${post.title} featured image`}
-                      fill
-                      className="object-cover"
-                      intrinsicWidth={1600}
-                      intrinsicHeight={900}
-                    />
-                  </div>
-                ) : null}
-                <RichContent html={articleHtml} className="leading-8 prose-p:my-6 prose-h2:my-8 prose-h3:my-6 prose-ul:my-6" />
-                <ArticleComments slug={post.slug} />
-              </div>
+                </article>
+              </>
             ) : null}
 
             {!isArticle ? (
