@@ -26,10 +26,7 @@ const footerLinks = {
   })),
   company: [
     { name: 'About', href: '/about' },
-    { name: 'Team', href: '/team' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Press', href: '/press' },
+    { name: 'Contact Us', href: '/contact' },
   ],
   resources: [
     { name: 'Help Center', href: '/help' },
@@ -88,7 +85,7 @@ export function Footer() {
             <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7">
               <div className="flex items-center gap-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/12 bg-white/8 p-1.5">
-                  <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+                  <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full scale-110 object-contain" />
                 </div>
                 <div>
                   <p className="text-lg font-semibold">{SITE_CONFIG.name}</p>
@@ -142,7 +139,7 @@ export function Footer() {
     return (
       <footer className="border-t border-[rgba(84,120,255,0.2)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(244,247,255,1)_100%)] text-[#111FA2]">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr_0.85fr_0.95fr]">
+          <div className="grid gap-12 lg:grid-cols-[1.2fr_0.9fr_0.9fr]">
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(84,120,255,0.28)] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#5478FF]">
                 <Sparkles className="h-3.5 w-3.5 text-[#53CBF3]" />
@@ -184,18 +181,6 @@ export function Footer() {
                 ))}
               </ul>
             </div>
-            <div>
-              <h4 className="text-xs font-semibold uppercase tracking-[0.24em] text-[#111FA2]/55">{siteContent.footerMoreSurfaces.title}</h4>
-              <ul className="mt-4 space-y-3 text-sm text-[#111FA2]/85">
-                {siteContent.footerMoreSurfaces.links.map((item) => (
-                  <li key={item.href}>
-                    <Link href={item.href} className="hover:text-[#5478FF]">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
           <div className="mt-12 border-t border-[rgba(84,120,255,0.15)] pt-6 text-center text-sm text-[#111FA2]/55">
             &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
@@ -212,7 +197,7 @@ export function Footer() {
           <div>
             <Link href="/" className="flex items-center gap-3">
               <div className="h-11 w-11 overflow-hidden rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
-                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="44" height="44" className="h-full w-full object-contain" />
+                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="44" height="44" className="h-full w-full scale-110 object-contain" />
               </div>
               <div>
                 <span className="block text-lg font-semibold">{SITE_CONFIG.name}</span>
