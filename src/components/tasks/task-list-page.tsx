@@ -30,8 +30,10 @@ const variantShells = {
   'article-editorial':
     'bg-[radial-gradient(ellipse_90%_60%_at_0%_-10%,rgba(83,203,243,0.16),transparent_50%),radial-gradient(ellipse_70%_50%_at_100%_0%,rgba(255,222,66,0.12),transparent_45%),linear-gradient(180deg,#ffffff_0%,#f4f7ff_100%)]',
   'article-journal': 'bg-[linear-gradient(180deg,#fffdf9_0%,#f7f1ea_100%)]',
-  'image-masonry': 'bg-[linear-gradient(180deg,#09101d_0%,#111c2f_100%)] text-white',
-  'image-portfolio': 'bg-[linear-gradient(180deg,#07111f_0%,#13203a_100%)] text-white',
+  'image-masonry':
+    'bg-[radial-gradient(ellipse_90%_60%_at_0%_-10%,rgba(83,203,243,0.16),transparent_50%),radial-gradient(ellipse_70%_50%_at_100%_0%,rgba(255,222,66,0.12),transparent_45%),linear-gradient(180deg,#ffffff_0%,#f4f7ff_100%)]',
+  'image-portfolio':
+    'bg-[radial-gradient(ellipse_90%_60%_at_0%_-10%,rgba(83,203,243,0.16),transparent_50%),radial-gradient(ellipse_70%_50%_at_100%_0%,rgba(255,222,66,0.12),transparent_45%),linear-gradient(180deg,#ffffff_0%,#f4f7ff_100%)]',
   'profile-creator': 'bg-[linear-gradient(180deg,#0a1120_0%,#101c34_100%)] text-white',
   'profile-business': 'bg-[linear-gradient(180deg,#f6fbff_0%,#ffffff_100%)]',
   'classified-bulletin': 'bg-[linear-gradient(180deg,#edf3e4_0%,#ffffff_100%)]',
@@ -61,7 +63,7 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
   const shellClass = variantShells[layoutKey as keyof typeof variantShells] || 'bg-background'
   const Icon = taskIcons[task] || LayoutGrid
 
-  const isDark = ['image-masonry', 'image-portfolio', 'profile-creator'].includes(layoutKey)
+  const isDark = ['profile-creator'].includes(layoutKey)
   const ui = isDark
     ? {
         muted: 'text-slate-300',
@@ -70,7 +72,7 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
         input: 'border-white/10 bg-white/6 text-white',
         button: 'bg-white text-slate-950 hover:bg-slate-200',
       }
-    : layoutKey.startsWith('article') || layoutKey.startsWith('sbm')
+    : layoutKey.startsWith('article') || layoutKey.startsWith('sbm') || layoutKey.startsWith('image')
       ? {
           muted: 'text-[#111FA2]/65',
           panel: 'border border-[rgba(84,120,255,0.22)] bg-white/95 shadow-[0_20px_50px_rgba(17,31,162,0.06)]',

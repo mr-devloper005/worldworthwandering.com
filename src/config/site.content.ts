@@ -83,17 +83,6 @@ export const siteContent = {
   },
   taskSectionHeading: 'Latest {label}',
   taskSectionDescriptionSuffix: 'New entries in this section, newest first.',
-  footerMoreSurfaces: {
-    title: 'Also on this site',
-    links: [
-      { label: 'Listings', href: '/listings' },
-      { label: 'Classifieds', href: '/classifieds' },
-      { label: 'Profiles', href: '/profile' },
-      { label: 'Bookmarks', href: '/sbm' },
-      { label: 'PDF library', href: '/pdf' },
-      { label: 'Search', href: '/search' },
-    ],
-  },
 } as const
 
 export const taskPageMetadata: Record<Exclude<TaskKey, 'comment' | 'org' | 'social'>, { title: string; description: string }> = {

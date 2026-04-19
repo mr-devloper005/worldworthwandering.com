@@ -450,8 +450,8 @@ function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { p
                 Open gallery
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/profile" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                Meet creators
+              <Link href="/about" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
+                About us
               </Link>
             </div>
           </div>
@@ -478,7 +478,7 @@ function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { p
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {creators.map((post) => (
-              <Link key={post.id} href={`/profile/${post.slug}`} className={`rounded-[1.8rem] p-5 ${tone.soft}`}>
+              <Link key={post.id} href="/image-sharing" className={`rounded-[1.8rem] p-5 ${tone.soft}`}>
                 <div className="relative h-40 overflow-hidden rounded-[1.2rem]">
                   <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
                 </div>
@@ -516,8 +516,8 @@ function CurationHome({ primaryTask, bookmarkPosts, profilePosts, articlePosts }
                 Open collections
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/profile" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                Explore curators
+              <Link href="/about" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
+                About us
               </Link>
             </div>
           </div>
@@ -541,7 +541,7 @@ function CurationHome({ primaryTask, bookmarkPosts, profilePosts, articlePosts }
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {people.map((post) => (
-              <Link key={post.id} href={`/profile/${post.slug}`} className={`rounded-[1.8rem] p-5 ${tone.soft}`}>
+              <Link key={post.id} href="/articles" className={`rounded-[1.8rem] p-5 ${tone.soft}`}>
                 <div className="relative h-32 overflow-hidden rounded-[1.2rem]">
                   <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
                 </div>

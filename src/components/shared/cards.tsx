@@ -297,7 +297,7 @@ export function ProfileCard({ user, compact = false }: { user: User; compact?: b
       whileHover={{ y: -4 }}
       transition={{ duration: 0.2 }}
     >
-      <Link href={`/profile/${user.id}`}>
+      <Link href="/about">
         <Card className="group overflow-hidden border-border bg-card transition-all hover:border-muted-foreground/20">
           <CardContent className={cn('flex items-center gap-4', compact ? 'p-3' : 'p-5')}>
             <Avatar className={cn(compact ? 'h-10 w-10' : 'h-14 w-14')}>
