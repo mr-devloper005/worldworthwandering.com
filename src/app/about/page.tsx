@@ -1,93 +1,108 @@
-import Link from "next/link";
-import { PageShell } from "@/components/shared/page-shell";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { mockTeamMembers } from "@/data/mock-data";
-import { SITE_CONFIG } from "@/lib/site-config";
+import Link from 'next/link'
+import { ArrowRight, Compass, HeartHandshake, MapPinned, NotebookText, Sparkles } from 'lucide-react'
+import { NavbarShell } from '@/components/shared/navbar-shell'
+import { Footer } from '@/components/shared/footer'
+import { SITE_CONFIG } from '@/lib/site-config'
 
-const highlights = [
-  { label: "Creators onboarded", value: "12k+" },
-  { label: "Bookmarks shared", value: "180k" },
-  { label: "Listings published", value: "8.6k" },
-];
+const principles = [
+  {
+    title: 'Write with context',
+    body: 'We prioritize practical details, local nuance, and honest reporting over checklist-style travel content.',
+    icon: NotebookText,
+  },
+  {
+    title: 'Design for calm reading',
+    body: 'Typography, spacing, and visual rhythm are optimized for long-form reading and slower browsing.',
+    icon: Compass,
+  },
+  {
+    title: 'Build with trust',
+    body: 'Profiles, references, and structured surfaces make it easier to evaluate content and contributors.',
+    icon: HeartHandshake,
+  },
+]
 
-const values = [
-  { title: "Curated by people", description: "We believe trusted recommendations beat endless feeds." },
-  { title: "Designed for focus", description: "Clear, calm UI helps you find the next best resource fast." },
-  { title: "Built to share", description: "Collections make collaboration and knowledge flow effortless." },
-];
+const milestones = [
+  { year: '2023', title: 'First field notes published', body: 'A small set of route notes and neighborhood essays shaped the editorial style.' },
+  { year: '2024', title: 'Travel + utility merged', body: 'Stories, listings, and searchable resources were unified into one publishing experience.' },
+  { year: '2025', title: 'Contributor growth', body: 'Writers and photographers across regions began using one shared platform and workflow.' },
+  { year: 'Now', title: 'Refined reading product', body: 'We continue polishing quality, speed, and clarity for every page and every device.' },
+]
 
 export default function AboutPage() {
   return (
-    <PageShell
-      title={`About ${SITE_CONFIG.name}`}
-      description={`${SITE_CONFIG.name} is a modern platform for creators, communities, and curated business discovery.`}
-      actions={
-        <>
-          <Button variant="outline" asChild>
-            <Link href="/team">Meet the Team</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/contact">Contact Us</Link>
-          </Button>
-        </>
-      }
-    >
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <Card className="border-border bg-card">
-          <CardContent className="space-y-4 p-6">
-            <Badge variant="secondary">Our Story</Badge>
-            <h2 className="text-2xl font-semibold text-foreground">
-              A single home for knowledge, discovery, and community.
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              {SITE_CONFIG.name} brings together publishing, listings, and social bookmarking so teams can move faster
-              and keep their best resources close.
-            </p>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {highlights.map((item) => (
-                <div key={item.label} className="rounded-lg border border-border bg-secondary/40 p-4">
-                  <div className="text-2xl font-semibold text-foreground">{item.value}</div>
-                  <div className="text-xs text-muted-foreground">{item.label}</div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        <div className="space-y-4">
-          {values.map((value) => (
-            <Card key={value.title} className="border-border bg-card">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-foreground">{value.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{value.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
+    <div className="min-h-screen bg-[radial-gradient(ellipse_90%_60%_at_0%_-10%,rgba(83,203,243,0.14),transparent_50%),radial-gradient(ellipse_70%_50%_at_100%_0%,rgba(255,222,66,0.1),transparent_45%),linear-gradient(180deg,#ffffff_0%,#f4f7ff_100%)] text-[#111FA2]">
+      <NavbarShell />
 
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
-        {mockTeamMembers.map((member) => (
-          <Card key={member.id} className="border-border bg-card transition-transform hover:-translate-y-1">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3">
-                <Avatar className="h-12 w-12">
-                  <AvatarImage src={member.avatar} alt={member.name} />
-                  <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{member.name}</p>
-                  <p className="text-xs text-muted-foreground">{member.role}</p>
-                </div>
+      <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <section className="grid gap-8 rounded-[2rem] border border-[rgba(84,120,255,0.22)] bg-[rgba(255,255,255,0.92)] p-7 lg:grid-cols-[1.05fr_0.95fr] lg:p-10">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#5478FF]">About {SITE_CONFIG.name}</p>
+            <h1 className="mt-4 text-4xl font-semibold tracking-[-0.05em] md:text-5xl">
+              Travel stories for readers who care about place, pace, and perspective.
+            </h1>
+            <p className="mt-5 max-w-2xl text-sm leading-8 text-[#111FA2]/65">
+              {SITE_CONFIG.name} is built for meaningful travel publishing: thoughtful stories, useful references, and image-led reporting in one calmer editorial product.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link href="/articles" className="inline-flex items-center gap-2 rounded-full bg-[#111FA2] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#5478FF]">
+                Read stories
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/contact" className="inline-flex items-center gap-2 rounded-full border border-[rgba(84,120,255,0.28)] bg-white px-5 py-2.5 text-sm font-semibold text-[#111FA2] hover:bg-[rgba(83,203,243,0.12)]">
+                Contact us
+              </Link>
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-2xl border border-[rgba(84,120,255,0.18)] bg-[rgba(248,250,255,0.85)] p-5">
+              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-[#5478FF]">Core focus</div>
+              <p className="mt-3 text-sm leading-7 text-[#111FA2]/65">Slow travel writing, grounded visuals, and useful local knowledge in one destination.</p>
+            </div>
+            <div className="rounded-2xl border border-[rgba(84,120,255,0.18)] bg-[rgba(248,250,255,0.85)] p-5">
+              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-[#5478FF]">Editorial style</div>
+              <p className="mt-3 text-sm leading-7 text-[#111FA2]/65">Clear language, strong structure, and practical details without inflated hype.</p>
+            </div>
+            <div className="rounded-2xl border border-[rgba(84,120,255,0.18)] bg-[rgba(248,250,255,0.85)] p-5 sm:col-span-2">
+              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#5478FF]">
+                <MapPinned className="h-4 w-4" />
+                Why readers return
               </div>
-              <p className="mt-3 text-sm text-muted-foreground">{member.bio}</p>
-              <p className="mt-3 text-xs text-muted-foreground">{member.location}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </PageShell>
-  );
+              <p className="mt-3 text-sm leading-7 text-[#111FA2]/65">
+                Because pages are fast, content is trustworthy, and every section is designed to help people explore without friction.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-10 grid gap-5 md:grid-cols-3">
+          {principles.map((item) => (
+            <article key={item.title} className="rounded-[1.6rem] border border-[rgba(84,120,255,0.18)] bg-[rgba(255,255,255,0.92)] p-6">
+              <item.icon className="h-5 w-5 text-[#5478FF]" />
+              <h2 className="mt-4 text-xl font-semibold">{item.title}</h2>
+              <p className="mt-3 text-sm leading-7 text-[#111FA2]/65">{item.body}</p>
+            </article>
+          ))}
+        </section>
+
+        <section className="mt-10 rounded-[2rem] border border-[rgba(84,120,255,0.22)] bg-[rgba(255,255,255,0.92)] p-7 lg:p-10">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#5478FF]">
+            <Sparkles className="h-4 w-4" />
+            Journey so far
+          </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {milestones.map((item) => (
+              <article key={item.year} className="rounded-2xl border border-[rgba(84,120,255,0.16)] bg-[rgba(248,250,255,0.88)] p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#5478FF]">{item.year}</p>
+                <h3 className="mt-2 text-lg font-semibold">{item.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-[#111FA2]/65">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  )
 }

@@ -1,10 +1,10 @@
 export const siteIdentity = {
   code: process.env.NEXT_PUBLIC_SITE_CODE || 'worldworthwandering',
   name: process.env.NEXT_PUBLIC_SITE_NAME || 'World Worth Wandering',
-  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Business listing platform',
+  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Travel stories & field notes',
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    'A listing-first business discovery platform for browsing services, businesses, spaces, and location-based opportunities through a cleaner browsing experience.',
+    'Independent travel writing, photo essays, and practical field notes from people who move slowly, look closely, and share what a place actually feels like.',
   domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'worldworthwandering.com',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://worldworthwandering.com',
   ogImage: process.env.NEXT_PUBLIC_SITE_OG_IMAGE || '/og-default.png',

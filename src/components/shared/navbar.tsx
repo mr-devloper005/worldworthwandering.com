@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Search, Menu, X, User, FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, ChevronRight, Sparkles, MapPin, Plus } from 'lucide-react'
+import { Search, Menu, X, User, FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, ChevronRight, MapPin, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/lib/auth-context'
 import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
@@ -41,12 +41,13 @@ const variantClasses = {
     mobile: 'border-t border-slate-200/70 bg-white/95',
   },
   'editorial-bar': {
-    shell: 'border-b border-[#d7c4b3] bg-[#fff7ee]/90 text-[#2f1d16] backdrop-blur-xl',
-    logo: 'rounded-full border border-[#dbc6b6] bg-white shadow-sm',
-    active: 'bg-[#2f1d16] text-[#fff4e4]',
-    idle: 'text-[#72594a] hover:bg-[#f2e5d4] hover:text-[#2f1d16]',
-    cta: 'rounded-full bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
-    mobile: 'border-t border-[#dbc6b6] bg-[#fff7ee]',
+    shell:
+      'border-b border-[rgba(84,120,255,0.2)] bg-[rgba(255,255,255,0.82)] text-[#111FA2] backdrop-blur-xl supports-[backdrop-filter]:bg-[rgba(255,255,255,0.72)]',
+    logo: 'voyage-logo-ring rounded-2xl border-2 border-[rgba(83,203,243,0.45)] bg-white shadow-[0_8px_30px_rgba(17,31,162,0.08)]',
+    active: 'bg-[#111FA2] text-white shadow-[0_10px_30px_rgba(17,31,162,0.25)]',
+    idle: 'text-[#111FA2]/75 hover:bg-[rgba(83,203,243,0.12)] hover:text-[#111FA2]',
+    cta: 'rounded-full bg-[#111FA2] text-white hover:bg-[#5478FF]',
+    mobile: 'border-t border-[rgba(84,120,255,0.18)] bg-[rgba(248,250,255,0.96)]',
   },
   'floating-bar': {
     shell: 'border-b border-transparent bg-transparent text-white',
@@ -104,7 +105,6 @@ export function Navbar() {
     href: task.route,
     icon: taskIcons[task.key] || LayoutGrid,
   }))
-  const primaryTask = SITE_CONFIG.tasks.find((task) => task.key === recipe.primaryTask && task.enabled) || primaryNavigation[0]
   const isDirectoryProduct = recipe.homeLayout === 'listing-home' || recipe.homeLayout === 'classified-home'
 
   if (isDirectoryProduct) {
@@ -117,7 +117,7 @@ export function Navbar() {
             <div className="flex min-w-0 items-center gap-3">
               <Link href="/" className="flex min-w-0 items-center gap-3">
                 <div className={cn('flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden p-1.5', palette.logo)}>
-                  <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="44" height="44" className="h-full w-full object-contain" />
+                  <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="44" height="44" className="h-full w-full scale-110 object-contain" />
                 </div>
                 <div className="min-w-0">
                   <span className="block truncate text-lg font-semibold">{SITE_CONFIG.name}</span>
@@ -168,7 +168,7 @@ export function Navbar() {
           <div className="flex h-full flex-col">
             <Link href="/" className="flex items-center gap-3">
               <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', palette.logo)}>
-                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full scale-110 object-contain" />
               </div>
               <div className="min-w-0">
                 <span className="block truncate text-xl font-semibold">{SITE_CONFIG.name}</span>
@@ -176,20 +176,13 @@ export function Navbar() {
               </div>
             </Link>
 
-            <div className={cn('mt-7 flex items-center gap-3 rounded-[1.4rem] px-4 py-3 text-sm', palette.search)}>
+            <Link href="/search" className={cn('mt-7 flex items-center gap-3 rounded-[1.4rem] px-4 py-3 text-sm transition-colors', palette.search)}>
               <Search className="h-4 w-4 shrink-0" />
               <div className="min-w-0">
                 <div className="truncate font-medium">Find local businesses</div>
                 <div className="truncate text-xs opacity-70">Search by service, category, or city</div>
               </div>
-            </div>
-
-            {primaryTask ? (
-              <Link href={primaryTask.route} className="mt-5 inline-flex items-center gap-2 self-start rounded-full border border-current/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] opacity-75">
-                <Sparkles className="h-3.5 w-3.5" />
-                {primaryTask.label}
-              </Link>
-            ) : null}
+            </Link>
 
             <nav className="mt-8 space-y-2">
               {primaryNavigation.map((task) => {
@@ -251,12 +244,12 @@ export function Navbar() {
 
   return (
     <>
-      <header data-mobile-nav="true" className={cn('sticky top-0 z-50 w-full xl:hidden', style.shell)}>
+      <header data-mobile-nav="true" className={cn('voyage-bar-enter sticky top-0 z-50 w-full xl:hidden', style.shell)}>
         <nav className={cn('mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8', isFloating ? 'h-24 pt-4' : 'h-20')}>
           <div className="flex min-w-0 items-center gap-3">
             <Link href="/" className="flex min-w-0 items-center gap-3">
               <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', style.logo)}>
-                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full scale-110 object-contain" />
               </div>
               <div className="min-w-0">
                 <span className="block truncate text-lg font-semibold">{SITE_CONFIG.name}</span>
@@ -288,7 +281,15 @@ export function Navbar() {
               {mobileNavigation.map((item) => {
                 const isActive = pathname.startsWith(item.href)
                 return (
-                  <Link key={item.name} href={item.href} onClick={() => setIsMobileMenuOpen(false)} className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', isActive ? style.active : style.idle)}>
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      'voyage-nav-link flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors',
+                      isActive ? cn(style.active, 'voyage-nav-active') : style.idle,
+                    )}
+                  >
                     <item.icon className="h-5 w-5" />
                     {item.name}
                   </Link>
@@ -299,11 +300,11 @@ export function Navbar() {
         )}
       </header>
 
-      <aside className={cn('hidden xl:fixed xl:inset-y-0 xl:left-0 xl:z-40 xl:flex xl:w-80 xl:flex-col xl:overflow-y-auto xl:border-r xl:px-6 xl:py-7', style.shell)}>
+      <aside className={cn('voyage-bar-enter hidden xl:fixed xl:inset-y-0 xl:left-0 xl:z-40 xl:flex xl:w-80 xl:flex-col xl:overflow-y-auto xl:border-r xl:border-[rgba(84,120,255,0.15)] xl:px-6 xl:py-7', style.shell)}>
         <div className="flex h-full flex-col">
           <Link href="/" className="flex items-center gap-3">
             <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', style.logo)}>
-              <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+              <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full scale-110 object-contain" />
             </div>
             <div className="min-w-0">
               <span className="block truncate text-xl font-semibold">{SITE_CONFIG.name}</span>
@@ -311,27 +312,27 @@ export function Navbar() {
             </div>
           </Link>
 
-          <div className={cn('mt-7 rounded-[1.35rem] border border-current/10 px-4 py-4', isFloating ? 'bg-white/6 backdrop-blur' : isEditorial ? 'bg-white/70' : isUtility ? 'bg-white/80' : 'bg-slate-50')}>
+          <Link href="/search" className={cn('mt-7 block rounded-[1.35rem] border border-current/10 px-4 py-4 transition-colors', isFloating ? 'bg-white/6 backdrop-blur hover:bg-white/10' : isEditorial ? 'bg-white/70 hover:bg-white/90' : isUtility ? 'bg-white/80 hover:bg-white' : 'bg-slate-50 hover:bg-white')}>
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] opacity-70">
               <Search className="h-3.5 w-3.5" />
               Quick Find
             </div>
             <p className="mt-2 text-sm leading-6 opacity-80">Browse by task, lane, or content type without cramped top navigation.</p>
-          </div>
-
-          {primaryTask ? (
-            <Link href={primaryTask.route} className={cn('mt-5 inline-flex items-center gap-2 self-start rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em]', isFloating ? 'border border-white/10 bg-white/6 text-white/80' : 'border border-current/10 bg-white/70 opacity-80')}>
-              <Sparkles className="h-3.5 w-3.5" />
-              {primaryTask.label}
-            </Link>
-          ) : null}
+          </Link>
 
           <nav className="mt-8 space-y-2">
             {primaryNavigation.map((task) => {
               const Icon = taskIcons[task.key] || LayoutGrid
               const isActive = pathname.startsWith(task.route)
               return (
-                <Link key={task.key} href={task.route} className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', isActive ? style.active : style.idle)}>
+                <Link
+                  key={task.key}
+                  href={task.route}
+                  className={cn(
+                    'voyage-nav-link flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors',
+                    isActive ? cn(style.active, 'voyage-nav-active') : style.idle,
+                  )}
+                >
                   <Icon className="h-4 w-4 shrink-0" />
                   <span className="truncate">{task.label}</span>
                   <ChevronRight className="ml-auto h-4 w-4 opacity-45" />
