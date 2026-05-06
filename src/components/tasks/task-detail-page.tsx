@@ -42,9 +42,9 @@ const isValidImageUrl = (value?: string | null) =>
   typeof value === "string" && (value.startsWith("/") || /^https?:\/\//i.test(value));
 
 const absoluteUrl = (value?: string | null) => {
-  if (!value) return null;
+  if (!value) return "";
   if (/^https?:\/\//i.test(value)) return value;
-  if (!value.startsWith("/")) return null;
+  if (!value.startsWith("/")) return "";
   return `${SITE_CONFIG.baseUrl.replace(/\/$/, "")}${value}`;
 };
 
@@ -81,9 +81,9 @@ const toNumber = (value?: number | string) => {
   if (typeof value === "number" && Number.isFinite(value)) return value;
   if (typeof value === "string") {
     const parsed = Number(value);
-    return Number.isFinite(parsed) ? parsed : null;
+    return Number.isFinite(parsed) ? parsed : 0;
   }
-  return null;
+  return 0;
 };
 
 const buildMapEmbedUrl = (
@@ -96,9 +96,9 @@ const buildMapEmbedUrl = (
   const normalizedAddress = typeof address === "string" ? address.trim() : "";
   const googleMapsEmbedApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_API_KEY?.trim();
 
-  if (googleMapsEmbedApiKey) {
-    const query = lat !== null && lon !== null ? `${lat},${lon}` : normalizedAddress;
-    if (!query) return null;
+  if (googleMapsEmbedApiKey && address) {
+    const query = lat !== null && lon !== null ? `${lat},${lon}` : address;
+    if (!query) return "";
     return `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(
       googleMapsEmbedApiKey
     )}&q=${encodeURIComponent(query)}`;
@@ -116,6 +116,7 @@ const buildMapEmbedUrl = (
     )}&layer=mapnik&marker=${encodeURIComponent(`${lat},${lon}`)}`;
   }
 
+  return "";
   if (normalizedAddress) {
     return `https://www.google.com/maps?q=${encodeURIComponent(normalizedAddress)}&output=embed`;
   }
@@ -155,13 +156,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
     (typeof content.author === "string" && content.author.trim()) ||
     post.authorName ||
     "Editorial Team";
-  const articleDate = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString("en-IN", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    : "";
+  const articleDate = "";
   const postTags = Array.isArray(post.tags) ? post.tags.filter((tag) => typeof tag === "string") : [];
   const location = content.address || content.location;
   const images = getImageUrls(post, content);
@@ -189,9 +184,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
           "@type": "Person",
           name: articleAuthor,
         },
-        datePublished: post.publishedAt || undefined,
-        dateModified: post.publishedAt || undefined,
-        articleSection: category,
+                articleSection: category,
         keywords: postTags.join(", "),
         mainEntityOfPage: {
           "@type": "WebPage",
@@ -295,7 +288,6 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                   <div className="relative z-10 max-w-3xl">
                     <div className="flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.2em]">
                       <span className="rounded-full bg-[#FFDE42] px-3 py-1 text-[#111FA2]">{category}</span>
-                      {articleDate ? <span className="text-white/75">{articleDate}</span> : null}
                     </div>
                     <h1 className="mt-5 text-balance font-[family-name:var(--font-display)] text-3xl font-semibold leading-[1.1] tracking-[-0.04em] text-white sm:text-4xl lg:text-[2.65rem]">
                       {post.title}

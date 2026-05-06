@@ -29,7 +29,7 @@ export const siteTaskDefinitions = [
     route: '/image-sharing',
     description: 'Photo essays and scenes from the road.',
     contentType: 'image',
-    enabled: true,
+    enabled: false,
   },
   {
     key: 'profile',
