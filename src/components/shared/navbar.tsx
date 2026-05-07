@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -94,9 +94,14 @@ export function Navbar() {
   }
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
   const { isAuthenticated } = useAuth()
   const { recipe } = getFactoryState()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const navigation = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'profile'), [])
   const primaryNavigation = navigation.slice(0, 5)
@@ -151,7 +156,7 @@ export function Navbar() {
                   Find businesses, spaces, and services
                 </div>
                 {mobileNavigation.map((item) => {
-                  const isActive = pathname.startsWith(item.href)
+                  const isActive = mounted ? pathname.startsWith(item.href) : false
                   return (
                     <Link key={item.name} href={item.href} onClick={() => setIsMobileMenuOpen(false)} className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', isActive ? 'bg-foreground text-background' : palette.post)}>
                       <item.icon className="h-5 w-5" />
@@ -186,7 +191,7 @@ export function Navbar() {
 
             <nav className="mt-8 space-y-2">
               {primaryNavigation.map((task) => {
-                const isActive = pathname.startsWith(task.route)
+                const isActive = mounted ? pathname.startsWith(task.route) : false
                 const Icon = taskIcons[task.key] || LayoutGrid
                 return (
                   <Link
@@ -279,7 +284,7 @@ export function Navbar() {
           <div className={style.mobile}>
             <div className="space-y-2 px-4 py-4">
               {mobileNavigation.map((item) => {
-                const isActive = pathname.startsWith(item.href)
+                const isActive = mounted ? pathname.startsWith(item.href) : false
                 return (
                   <Link
                     key={item.name}
@@ -323,7 +328,7 @@ export function Navbar() {
           <nav className="mt-8 space-y-2">
             {primaryNavigation.map((task) => {
               const Icon = taskIcons[task.key] || LayoutGrid
-              const isActive = pathname.startsWith(task.route)
+              const isActive = mounted ? pathname.startsWith(task.route) : false
               return (
                 <Link
                   key={task.key}

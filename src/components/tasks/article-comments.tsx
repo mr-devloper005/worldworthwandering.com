@@ -22,7 +22,6 @@ type LocalComment = {
   articleSlug: string;
   authorName: string;
   body: string;
-  createdAt: string;
   source: "local";
 };
 
@@ -31,7 +30,6 @@ type DisplayComment = {
   slug: string;
   authorName: string;
   body: string;
-  createdAt: string;
   source: "local" | "remote";
 };
 
@@ -45,18 +43,6 @@ const getContent = (post: SitePost) =>
 
 const commentStorageKey = (slug: string) => `nexus-article-comments:${LOCAL_COMMENT_VERSION}:${slug}`;
 
-const startOfToday = () => {
-  const date = new Date();
-  date.setHours(0, 0, 0, 0);
-  return date.getTime();
-};
-
-const nextResetTime = () => {
-  const date = new Date();
-  date.setDate(date.getDate() + 1);
-  date.setHours(0, 0, 0, 0);
-  return date;
-};
 
 const getLocalAuthorName = () => {
   const savedUser = loadFromStorage<User | null>(storageKeys.user, null);
@@ -73,8 +59,7 @@ const toDisplayComment = (comment: SitePost): DisplayComment => {
       (typeof content.description === "string" && content.description) ||
       comment.summary ||
       "Comment added.",
-    createdAt: comment.publishedAt || comment.createdAt || new Date().toISOString(),
-    source: "remote",
+        source: "remote",
   };
 };
 
@@ -83,7 +68,7 @@ const sortComments = (comments: DisplayComment[]) =>
     if (a.source !== b.source) {
       return a.source === "local" ? -1 : 1;
     }
-    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    return 0;
   });
 
 export function ArticleComments({ slug }: { slug: string }) {
@@ -142,7 +127,6 @@ export function ArticleComments({ slug }: { slug: string }) {
           slug: comment.slug,
           authorName: comment.authorName,
           body: comment.body,
-          createdAt: comment.createdAt,
           source: "local" as const,
         })),
         ...remoteComments,
@@ -151,18 +135,12 @@ export function ArticleComments({ slug }: { slug: string }) {
   );
 
   const commentsToday = useMemo(() => {
-    const todayStart = startOfToday();
-    return localComments.filter((comment) => new Date(comment.createdAt).getTime() >= todayStart).length;
+    return localComments.length;
   }, [localComments]);
 
   const remainingToday = Math.max(DAILY_COMMENT_LIMIT - commentsToday, 0);
   const limitReached = remainingToday <= 0;
-  const resetLabel = nextResetTime().toLocaleString("en-IN", {
-    day: "numeric",
-    month: "short",
-    hour: "numeric",
-    minute: "2-digit",
-  });
+  const resetLabel = "Daily limit reached";
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -218,12 +196,11 @@ export function ArticleComments({ slug }: { slug: string }) {
     }
 
     const nextComment: LocalComment = {
-      id: `local-${slug}-${Date.now()}`,
-      slug: `local-comment-${Date.now()}`,
+      id: `local-${slug}-${Math.random()}`,
+      slug: `local-comment-${Math.random()}`,
       articleSlug: slug,
       authorName: getLocalAuthorName(),
       body: cleanBody,
-      createdAt: new Date().toISOString(),
       source: "local",
     };
 
@@ -310,9 +287,7 @@ export function ArticleComments({ slug }: { slug: string }) {
                     <p className="text-sm font-semibold text-foreground">{comment.authorName}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <p className="text-xs text-muted-foreground">
-                      {new Date(comment.createdAt).toLocaleDateString()}
-                    </p>
+                    <div className="h-2"></div>
                     {comment.source === "local" ? (
                       <button
                         type="button"

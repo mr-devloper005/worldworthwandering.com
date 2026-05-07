@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -75,9 +76,9 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-sans: 'Pacifico', cursive, var(--font-manrope), system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-display: 'Pacifico', cursive, var(--font-fraunces), ui-serif, Georgia, serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -130,6 +131,7 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Pacifico', cursive !important;
     min-height: 100vh;
     background-image:
       radial-gradient(ellipse 120% 80% at 0% -10%, rgba(84, 120, 255, 0.14), transparent 55%),
@@ -153,8 +155,10 @@
   h1,
   h2,
   h3,
-  h4 {
-    font-family: var(--font-display);
+  h4,
+  h5,
+  h6 {
+    font-family: 'Pacifico', cursive !important;
     letter-spacing: -0.03em;
   }
 
@@ -162,8 +166,10 @@
   li,
   input,
   button,
-  textarea {
-    font-family: var(--font-sans);
+  textarea,
+  span,
+  div {
+    font-family: 'Pacifico', cursive !important;
   }
 
   ::selection {
@@ -358,7 +364,7 @@ body[data-site-shell="market"] {
 .factory-font-editorial h2,
 .factory-font-editorial h3,
 .factory-font-editorial h4 {
-  font-family: var(--font-display);
+  font-family: 'Pacifico', cursive !important;
 }
 
 .factory-font-directory h1,
@@ -369,14 +375,14 @@ body[data-site-shell="market"] {
 .factory-font-market h2,
 .factory-font-market h3,
 .factory-font-market h4 {
-  font-family: var(--font-sans);
+  font-family: 'Pacifico', cursive !important;
 }
 
 .factory-font-studio h1,
 .factory-font-studio h2,
 .factory-font-studio h3,
 .factory-font-studio h4 {
-  font-family: var(--font-sans);
+  font-family: 'Pacifico', cursive !important;
   letter-spacing: -0.05em;
 }
 

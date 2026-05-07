@@ -27,7 +27,7 @@ export function TaskImageCarousel({ images }: { images: string[] }) {
     };
   }, [emblaApi]);
 
-  if (!images.length) return null;
+  if (!images.length) return <div className="text-center text-muted-foreground">No images available</div>;
 
   return (
     <div className="relative overflow-hidden rounded-3xl border border-border bg-muted">

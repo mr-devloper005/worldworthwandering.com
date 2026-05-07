@@ -83,12 +83,25 @@ const articlePieces: Array<{
     summary:
       "Smoke, mezcal vapor, and the sound of plastic bags—an ordinary route that still feels cinematic if you slow down.",
     author: "Diego Ríos",
-    body: `<p>Oaxaca’s night market is loud in the best way: laughter layered over sizzle, vendors calling, shoes scraping stone. Leaving is when the city softens.</p>
+    body: `<p>Oaxaca's night market is loud in the best way: laughter layered over sizzle, vendors calling, shoes scraping stone. Leaving is when the city softens.</p>
 <h2>The walk as a photograph</h2>
-<p>I stopped trying to “capture” everything and instead noted sequences: a dog under a table, a child swinging a balloon, a grandmother wrapping tamales in paper that looked older than me.</p>
+<p>I stopped trying to "capture" everything and instead noted sequences: a dog under a table, a child swinging a balloon, a grandmother wrapping tamales in paper that looked older than me.</p>
 <p>Photography, at night, is negotiation. Raise ISO and accept grain. Choose one corner and wait for someone to walk through the light.</p>
 <h2>Gear I carried</h2>
 <p>A small prime lens, a scarf for lens fog, and the discipline to put the camera down for half the walk. Some streets are meant to be remembered, not optimized.</p>`,
+  },
+  {
+    title: "Najlepsze blachy ze stali nierdzewnej wysoka jakość i trwałość",
+    category: "Materials",
+    summary: "Comprehensive guide to high-quality stainless steel sheets and their applications in modern construction.",
+    author: "Jan Kowalski",
+    body: `<p>Stainless steel sheets represent one of the most versatile materials in modern construction and industrial applications. Their exceptional durability and corrosion resistance make them indispensable.</p>
+<h2>Understanding Stainless Steel Grades</h2>
+<p>The most common grades include 304 and 316 stainless steel, each offering specific advantages for different applications. Grade 304 provides excellent corrosion resistance for most environments, while 316 offers superior performance in marine and chemical environments.</p>
+<h2>Key Benefits</h2>
+<ul><li>Exceptional corrosion resistance</li><li>High strength-to-weight ratio</li><li>Low maintenance requirements</li><li>Aesthetic appeal with modern finish</li><li>100% recyclable material</li></ul>
+<h2>Applications</h2>
+<p>From architectural cladding to food processing equipment, stainless steel sheets provide reliable performance across diverse industries.</p>`,
   },
 ];
 
@@ -225,7 +238,8 @@ const slugify = (title: string) =>
     .replace(/(^-|-$)/g, "");
 
 export const getMockPostsForTask = (task: TaskKey): SitePost[] => {
-  return Array.from({ length: 5 }).map((_, index) => {
+  const articleCount = task === "article" ? articlePieces.length : 5;
+  return Array.from({ length: articleCount }).map((_, index) => {
     const title = taskTitles[task][index];
     const category = randomFrom(taskCategories[task], index);
     const slug = slugify(title);
