@@ -24,6 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         data-motion-pack={recipe.motionPack}
         data-nav-layout={hasLeftSidebarNav ? 'sidebar-left' : 'topbar'}
         className={`${brandPack.bodyClassName} ${brandPack.fontClassName} ${brandPack.paletteClassName}${hasLeftSidebarNav ? ' factory-left-nav' : ''}`}
+        suppressHydrationWarning
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <AuthProvider>

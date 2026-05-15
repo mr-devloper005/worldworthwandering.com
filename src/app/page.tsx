@@ -289,14 +289,8 @@ function EditorialHome({ articlePosts, supportTasks }: { primaryTask?: EnabledTa
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           <div className="grid gap-12 lg:grid-cols-[1.12fr_0.88fr] lg:items-end">
             <div className="voyage-headline-stagger">
-              <span
-                className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] ${tone.badge}`}
-              >
-                <FileText className="h-3.5 w-3.5" />
-                {siteContent.home.introBadge}
-              </span>
               <h1
-                className={`mt-7 max-w-[22ch] text-4xl font-semibold tracking-[-0.055em] sm:text-5xl lg:text-[3.35rem] lg:leading-[1.05] ${tone.title}`}
+                className={`max-w-[22ch] text-4xl font-semibold tracking-[-0.055em] sm:text-5xl lg:text-[3.35rem] lg:leading-[1.05] ${tone.title}`}
               >
                 {siteContent.hero.title[0]}{' '}
                 <span className="bg-gradient-to-r from-[#5478FF] via-[#53CBF3] to-[#111FA2] bg-[length:200%_auto] bg-clip-text text-transparent [animation:voyage-shimmer_8s_linear_infinite]">
@@ -311,12 +305,6 @@ function EditorialHome({ articlePosts, supportTasks }: { primaryTask?: EnabledTa
                 >
                   {siteContent.hero.primaryCta.label}
                   <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href={siteContent.hero.secondaryCta.href}
-                  className={`inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition hover:-translate-y-0.5 ${tone.actionAlt}`}
-                >
-                  {siteContent.hero.secondaryCta.label}
                 </Link>
               </div>
             </div>
@@ -389,9 +377,6 @@ function EditorialHome({ articlePosts, supportTasks }: { primaryTask?: EnabledTa
               <Link href={siteContent.home.primaryLink.href} className={`rounded-full px-5 py-2.5 text-sm font-semibold ${tone.actionAlt}`}>
                 {siteContent.home.primaryLink.label}
               </Link>
-              <Link href={siteContent.home.secondaryLink.href} className={`rounded-full px-5 py-2.5 text-sm font-semibold ${tone.soft}`}>
-                {siteContent.home.secondaryLink.label}
-              </Link>
             </div>
           </div>
           <div className={`rounded-[2rem] p-8 ${tone.soft}`}>
@@ -408,7 +393,7 @@ function EditorialHome({ articlePosts, supportTasks }: { primaryTask?: EnabledTa
         </div>
 
         <div className="mt-14 grid gap-5 md:grid-cols-2">
-          {supportTasks.slice(0, 4).map((task) => {
+          {supportTasks.filter((task) => task.key !== 'image').slice(0, 4).map((task) => {
             const Icon = taskIcons[task.key as TaskKey] || LayoutGrid
             return (
               <Link key={task.key} href={task.route} className={`group rounded-[1.75rem] p-7 transition hover:-translate-y-1 ${tone.panel}`}>

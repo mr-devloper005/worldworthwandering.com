@@ -23,10 +23,10 @@ const principles = [
 ]
 
 const milestones = [
-  { year: '2023', title: 'First field notes published', body: 'A small set of route notes and neighborhood essays shaped the editorial style.' },
-  { year: '2024', title: 'Travel + utility merged', body: 'Stories, listings, and searchable resources were unified into one publishing experience.' },
-  { year: '2025', title: 'Contributor growth', body: 'Writers and photographers across regions began using one shared platform and workflow.' },
-  { year: 'Now', title: 'Refined reading product', body: 'We continue polishing quality, speed, and clarity for every page and every device.' },
+  { title: 'First field notes published', body: 'A small set of route notes and neighborhood essays shaped the editorial style.' },
+  { title: 'Travel + utility merged', body: 'Stories, listings, and searchable resources were unified into one publishing experience.' },
+  { title: 'Contributor growth', body: 'Writers and photographers across regions began using one shared platform and workflow.' },
+  { title: 'Refined reading product', body: 'We continue polishing quality, speed, and clarity for every page and every device.' },
 ]
 
 export default function AboutPage() {
@@ -92,9 +92,8 @@ export default function AboutPage() {
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {milestones.map((item) => (
-              <article key={item.year} className="rounded-2xl border border-[rgba(84,120,255,0.16)] bg-[rgba(248,250,255,0.88)] p-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#5478FF]">{item.year}</p>
-                <h3 className="mt-2 text-lg font-semibold">{item.title}</h3>
+              <article key={item.title} className="rounded-2xl border border-[rgba(84,120,255,0.16)] bg-[rgba(248,250,255,0.88)] p-5">
+                <h3 className="text-lg font-semibold">{item.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-[#111FA2]/65">{item.body}</p>
               </article>
             ))}
