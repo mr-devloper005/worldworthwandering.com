@@ -313,11 +313,6 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                       ))}
                     </div>
                   ) : null}
-                  {articleSummary ? (
-                    <p className="text-balance font-[family-name:var(--font-display)] text-xl font-medium italic leading-snug text-[#111FA2]/88 sm:text-2xl">
-                      {articleSummary}
-                    </p>
-                  ) : null}
                   {images[0] ? (
                     <figure className="mt-10">
                       <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-[rgba(84,120,255,0.14)] bg-muted shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]">
