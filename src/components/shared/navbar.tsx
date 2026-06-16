@@ -104,7 +104,7 @@ export function Navbar() {
   }, [])
 
   const navigation = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'profile'), [])
-  const primaryNavigation = navigation.slice(0, 5)
+  const primaryNavigation = navigation.filter((task) => task.key !== 'image').slice(0, 5)
   const mobileNavigation = navigation.map((task) => ({
     name: task.label,
     href: task.route,
@@ -313,7 +313,6 @@ export function Navbar() {
             </div>
             <div className="min-w-0">
               <span className="block truncate text-xl font-semibold">{SITE_CONFIG.name}</span>
-              <span className="block truncate text-[10px] uppercase tracking-[0.24em] opacity-70">{siteContent.navbar.tagline}</span>
             </div>
           </Link>
 

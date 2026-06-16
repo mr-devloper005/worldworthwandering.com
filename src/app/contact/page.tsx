@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Building2, Clock3, FileText, Image as ImageIcon, Mail, MapPin, Phone, Sparkles, Bookmark, ArrowRight } from 'lucide-react'
+import { Building2, FileText, Image as ImageIcon, Mail, MapPin, Phone, Sparkles, Bookmark, ArrowRight } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
 import { SITE_CONFIG } from '@/lib/site-config'
@@ -55,27 +55,6 @@ export default function ContactPage() {
               { icon: Sparkles, title: 'Curator support', body: 'Need help organizing shelves, collections, or profile-connected boards?' },
             ]
 
-  const contactMethods = [
-    {
-      title: 'General support',
-      value: 'hello@worldworthwandering.com',
-      href: 'mailto:hello@worldworthwandering.com',
-      icon: Mail,
-    },
-    {
-      title: 'Partnerships',
-      value: 'partners@worldworthwandering.com',
-      href: 'mailto:partners@worldworthwandering.com',
-      icon: Sparkles,
-    },
-    {
-      title: 'Response window',
-      value: 'Mon-Fri, within 24-48 hours',
-      href: '/help',
-      icon: Clock3,
-    },
-  ]
-
   return (
     <div className={`min-h-screen ${tone.shell}`}>
       <NavbarShell />
@@ -109,21 +88,6 @@ export default function ContactPage() {
               </article>
             ))}
 
-            <div className={`grid gap-3 rounded-[1.6rem] p-5 ${tone.soft}`}>
-              {contactMethods.map((item) => (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  className="flex items-start gap-3 rounded-xl border border-current/10 bg-transparent p-3 transition-colors hover:bg-black/5"
-                >
-                  <item.icon className="mt-0.5 h-4 w-4 shrink-0" />
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] opacity-70">{item.title}</p>
-                    <p className="mt-1 text-sm">{item.value}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
           </div>
 
           <div className={`rounded-[1.8rem] p-7 ${tone.panel}`}>

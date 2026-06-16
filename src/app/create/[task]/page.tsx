@@ -71,7 +71,7 @@ const FORM_CONFIG: Record<TaskKey, { title: string; description: string; fields:
   },
   article: {
     title: "Create Article",
-    description: "Write a local-only article post.",
+    description: "Write an article post.",
     fields: [
       { key: "title", label: "Article title", type: "text", required: true },
       { key: "summary", label: "Short summary", type: "textarea", required: true },
@@ -289,7 +289,7 @@ export default function CreateTaskPage() {
         <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
           <div className="flex flex-wrap gap-2">
             <Badge variant="secondary">{taskConfig.label}</Badge>
-            <Badge variant="outline">Local-only</Badge>
+            {taskKey !== "article" ? <Badge variant="outline">Local-only</Badge> : null}
           </div>
 
           <div className="mt-6 grid gap-6">
@@ -376,10 +376,12 @@ export default function CreateTaskPage() {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button onClick={handleSubmit}>
-              <Save className="mr-2 h-4 w-4" />
-              Save locally
-            </Button>
+            {taskKey !== "article" ? (
+              <Button onClick={handleSubmit}>
+                <Save className="mr-2 h-4 w-4" />
+                Save locally
+              </Button>
+            ) : null}
             <Button variant="ghost" asChild>
               <Link href={taskConfig.route}>
                 View {taskConfig.label}
